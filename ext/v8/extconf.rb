@@ -4,7 +4,8 @@ have_library('pthread')
 have_library('objc') if RUBY_PLATFORM =~ /darwin/
 $CPPFLAGS += " -Wall" unless $CPPFLAGS.split.include? "-Wall"
 $CPPFLAGS += " -g" unless $CPPFLAGS.split.include? "-g"
-$CPPFLAGS += " -rdynamic" unless $CPPFLAGS.split.include? "-rdynamic"
+# $CPPFLAGS += " -rdynamic" unless $CPPFLAGS.split.include? "-rdynamic"
+$CPPFLAGS += " -Wl,--export-dynamic" unless $CPPFLAGS.include? "-rdynamic"
 $CPPFLAGS += " -fPIC" unless $CPPFLAGS.split.include? "-rdynamic" or RUBY_PLATFORM =~ /darwin/
 
 CONFIG['LDSHARED'] = '$(CXX) -shared' unless RUBY_PLATFORM =~ /darwin/
